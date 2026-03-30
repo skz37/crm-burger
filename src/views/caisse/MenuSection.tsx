@@ -1,4 +1,5 @@
 import { useCaisseController } from '@/controllers/useCaisseController'
+import { Article } from '@/models/types'
 
 export function MenuSection({ caisse }: { caisse: ReturnType<typeof useCaisseController> }) {
   const { categories, categorieActive, setCategorieActive, optionsBurger, setOptionsBurger, articlesFiltres, ajouterArticle } = caisse
@@ -58,7 +59,7 @@ export function MenuSection({ caisse }: { caisse: ReturnType<typeof useCaisseCon
       )}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 10 }}>
-        {articlesFiltres.map((a: any) => {
+        {articlesFiltres.map((a: Article) => {
           const isPending = caisse.pendingBurger?.id === a.id;
           return (
             <button key={a.id} onClick={() => ajouterArticle(a)} style={{

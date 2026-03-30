@@ -1,4 +1,7 @@
 import { useCaisseController } from '@/controllers/useCaisseController'
+import { Commande, CommandeArticle } from '@/models/types'
+
+type CommandeFull = Commande & { commande_articles?: CommandeArticle[] }
 
 export function HistoriqueSection({ caisse }: { caisse: ReturnType<typeof useCaisseController> }) {
   const { commandes, annulerCommande } = caisse
@@ -10,7 +13,7 @@ export function HistoriqueSection({ caisse }: { caisse: ReturnType<typeof useCai
         <div style={{ color: '#444', textAlign: 'center', padding: 40 }}>Aucune commande pour aujourd'hui</div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {commandes.map((c: any) => (
+          {commandes.map((c: CommandeFull) => (
             <div key={c.id} style={{
               background: '#1a1a1a', borderRadius: 10, border: '1px solid #2a2a2a', padding: '14px 18px',
               opacity: c.statut === 'annulee' ? 0.5 : 1
@@ -47,7 +50,7 @@ export function HistoriqueSection({ caisse }: { caisse: ReturnType<typeof useCai
               </div>
               {c.commande_articles && c.commande_articles.length > 0 && (
                 <div style={{ marginTop: 10, fontSize: 12, color: '#666', borderTop: '1px solid #222', paddingTop: 8 }}>
-                  {c.commande_articles.map((l: any) => (
+                  {c.commande_articles.map((l: CommandeArticle) => (
                     <span key={l.id} style={{ marginRight: 12 }}>{l.quantite}× {l.nom_article}</span>
                   ))}
                 </div>

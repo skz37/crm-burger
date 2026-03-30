@@ -1,7 +1,9 @@
 import { Commande, CommandeArticle } from '@/models/types'
 
+type CommandeFull = Commande & { commande_articles?: CommandeArticle[] }
+
 type DashboardCommandesProps = {
-  commandes: (Commande & { commande_articles?: CommandeArticle[] })[]
+  commandes: CommandeFull[]
 }
 
 export function DashboardCommandes({ commandes }: DashboardCommandesProps) {
@@ -18,7 +20,7 @@ export function DashboardCommandes({ commandes }: DashboardCommandesProps) {
               Aucune commande reçue aujourd'hui
             </div>
         ) : (
-          commandes.map((c: any) => (
+          commandes.map((c: CommandeFull) => (
             <div key={c.id} style={{
               background: '#141414', borderRadius: 12, border: '1px solid #2a2a2a', padding: '20px',
               opacity: c.statut === 'annulee' ? 0.6 : 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -36,7 +38,7 @@ export function DashboardCommandes({ commandes }: DashboardCommandesProps) {
                 </div>
                 {c.commande_articles && c.commande_articles.length > 0 && (
                   <div style={{ fontSize: 13, color: '#aaa', lineHeight: 1.5, maxWidth: '500px' }}>
-                    {c.commande_articles.map((l: any) => `${l.quantite}x ${l.nom_article}`).join(', ')}
+                    {c.commande_articles.map((l: CommandeArticle) => `${l.quantite}x ${l.nom_article}`).join(', ')}
                   </div>
                 )}
                 {(c.nom_client || c.telephone || c.note) && (

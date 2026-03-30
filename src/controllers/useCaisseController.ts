@@ -25,6 +25,7 @@ export function useCaisseController() {
     chargerArticles()
     chargerCommandes()
     chargerRapport()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function chargerArticles() {
@@ -57,7 +58,7 @@ export function useCaisseController() {
       return
     }
 
-    let articleAjouter = { ...article }
+    const articleAjouter = { ...article }
     if (!fromCart && article.categorie === 'burger' && optionsBurger.length > 0) {
       const optionsSuffix = ` (${optionsBurger.join(', ')})`
       articleAjouter.id = `${article.id}-${optionsBurger.join('-')}`
@@ -79,7 +80,7 @@ export function useCaisseController() {
   function confirmerPendingBurger() {
     if (!pendingBurger) return
     
-    let articleAjouter = { ...pendingBurger }
+    const articleAjouter = { ...pendingBurger }
     if (optionsBurger.length > 0) {
       const optionsSuffix = ` (${optionsBurger.join(', ')})`
       articleAjouter.id = `${pendingBurger.id}-${optionsBurger.join('-')}`
