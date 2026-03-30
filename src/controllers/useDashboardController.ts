@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Commande, CommandeArticle, RapportJournalier } from '@/models/types'
 import { CommandeService, RapportService } from '@/models/services'
 
 export function useDashboardController() {
+  const router = useRouter()
   const [commandes, setCommandes] = useState<(Commande & { commande_articles?: CommandeArticle[] })[]>([])
   const [rapportsData, setRapportsData] = useState<RapportJournalier[]>([])
   const [typeRapport, setTypeRapport] = useState<'jour' | 'semaine' | 'mois'>('jour')
@@ -65,6 +67,11 @@ export function useDashboardController() {
     
     setLastUpdate(new Date())
   }
+
+  function handleLogout() {
+    localStorage.removeItem('crm_auth')
+    router.push('/')
+  }
   
   return {
     commandes,
@@ -72,6 +79,7 @@ export function useDashboardController() {
     typeRapport,
     setTypeRapport,
     lastUpdate,
-    mounted
+    mounted,
+    handleLogout
   }
 }

@@ -16,8 +16,14 @@ export default function Dashboard() {
             Aujourd'hui{dash.mounted ? `, ${new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}` : ''}
           </p>
         </div>
-        <div style={{ textAlign: 'right', fontSize: 12, color: '#555' }}>
-          Dernière mise à jour : {dash.mounted ? dash.lastUpdate.toLocaleTimeString('fr-FR') : '...'}
+        <div style={{ textAlign: 'right' }}>
+          <button onClick={dash.handleLogout} style={{
+            background: '#222', border: '1px solid #333', padding: '6px 12px', borderRadius: 6, 
+            color: '#888', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 8
+          }}>Déconnexion</button>
+          <div style={{ fontSize: 11, color: '#555' }}>
+            Dernière mise à jour : {dash.mounted ? dash.lastUpdate.toLocaleTimeString('fr-FR') : '...'}
+          </div>
         </div>
       </div>
 
