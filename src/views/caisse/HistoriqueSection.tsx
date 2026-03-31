@@ -8,18 +8,18 @@ export function HistoriqueSection({ caisse }: { caisse: ReturnType<typeof useCai
 
   return (
     <div>
-      <div style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
-        <div style={{ flex: 1, background: '#1a1a1a', border: '1px solid #222', borderRadius: 12, padding: '12px 14px' }}>
+      <div className="stack-mobile" style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
+        <div style={{ flex: 1, background: '#1a1a1a', border: '1px solid #222', borderRadius: 12, padding: '12px 14px', width: '100%' }}>
           <div style={{ fontSize: 10, color: '#666', textTransform: 'uppercase', fontWeight: 600 }}>JOURNÉE</div>
           <div style={{ fontSize: 18, fontWeight: 700, color: '#f5c842' }}>{Number(caisse.totalJournalier).toFixed(2)}</div>
         </div>
-        <div style={{ flex: 1, background: '#1a1a1a', border: '1px solid #222', borderRadius: 12, padding: '12px 14px', borderLeft: '3px solid #fbbf24' }}>
+        <div style={{ flex: 1, background: '#1a1a1a', border: '1px solid #222', borderRadius: 12, padding: '12px 14px', borderLeft: '3px solid #fbbf24', width: '100%' }}>
           <div style={{ fontSize: 10, color: '#666', textTransform: 'uppercase', fontWeight: 600 }}>À PRÉPARER</div>
           <div style={{ fontSize: 18, fontWeight: 700, color: '#fbbf24' }}>
             {commandes.filter(c => c.statut === 'payee').reduce((acc, c) => acc + Number(c.total), 0).toFixed(2)}
           </div>
         </div>
-        <div style={{ flex: 1, background: '#1a1a1a', border: '1px solid #222', borderRadius: 12, padding: '12px 14px', borderLeft: '3px solid #4ade80' }}>
+        <div style={{ flex: 1, background: '#1a1a1a', border: '1px solid #222', borderRadius: 12, padding: '12px 14px', borderLeft: '3px solid #4ade80', width: '100%' }}>
           <div style={{ fontSize: 10, color: '#666', textTransform: 'uppercase', fontWeight: 600 }}>PRÊTES</div>
           <div style={{ fontSize: 18, fontWeight: 700, color: '#4ade80' }}>
             {commandes.filter(c => c.statut === 'prete').reduce((acc, c) => acc + Number(c.total), 0).toFixed(2)}

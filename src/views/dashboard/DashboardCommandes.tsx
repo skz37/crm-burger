@@ -21,10 +21,10 @@ export function DashboardCommandes({ commandes }: DashboardCommandesProps) {
             </div>
         ) : (
           commandes.map((c: CommandeFull) => (
-            <div key={c.id} style={{
+            <div key={c.id} className="stack-mobile" style={{
               background: '#141414', borderRadius: 12, border: '1px solid #2a2a2a', padding: '20px',
               opacity: c.statut === 'annulee' ? 0.6 : 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              transition: 'border-color 0.2s'
+              transition: 'border-color 0.2s', gap: 16
             }} onMouseEnter={e => (e.currentTarget.style.borderColor = '#444')} onMouseLeave={e => (e.currentTarget.style.borderColor = '#2a2a2a')}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
@@ -49,7 +49,7 @@ export function DashboardCommandes({ commandes }: DashboardCommandesProps) {
                   </div>
                 )}
               </div>
-              <div style={{ textAlign: 'right', minWidth: '100px' }}>
+              <div style={{ textAlign: 'right', minWidth: '100px' }} className="full-width-mobile">
                 <div style={{ fontSize: 24, fontWeight: 700, color: '#f5c842', marginBottom: 6 }}>{Number(c.total).toFixed(2)}</div>
                 <div style={{ fontSize: 11, color: '#555', background: '#222', padding: '4px 10px', borderRadius: 20, display: 'inline-block', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{c.mode_paiement}</div>
               </div>

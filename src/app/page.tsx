@@ -36,22 +36,23 @@ export default function CRMBurger() {
       </div>
 
       {/* Onglets */}
-      <div style={{ display: 'flex', borderBottom: '1px solid #2a2a2a', background: '#141414' }}>
+      <div className="scroll-x" style={{ borderBottom: '1px solid #2a2a2a', background: '#141414', padding: '0 12px' }}>
         {(['commande', 'historique', 'rapport'] as const).map(o => (
           <button key={o} onClick={() => caisse.setOnglet(o)} style={{
-            padding: '12px 24px', border: 'none', background: 'none', cursor: 'pointer',
+            padding: '12px 18px', border: 'none', background: 'none', cursor: 'pointer',
             color: caisse.onglet === o ? '#f5c842' : '#888',
             borderBottom: caisse.onglet === o ? '2px solid #f5c842' : '2px solid transparent',
-            fontSize: 13, fontFamily: 'inherit', textTransform: 'capitalize', fontWeight: 500
+            fontSize: 13, fontFamily: 'inherit', textTransform: 'capitalize', fontWeight: 500,
+            whiteSpace: 'nowrap'
           }}>
             {o === 'commande' ? 'Nouvelle commande' : o === 'historique' ? 'Commandes du jour' : 'Rapport du jour'}
           </button>
         ))}
       </div>
 
-      <div style={{ maxWidth: 900, margin: '0 auto', padding: '24px 16px' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '16px' }}>
         {caisse.onglet === 'commande' && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px', gap: 24 }}>
+          <div className="main-grid">
             <MenuSection caisse={caisse} />
             <CartSection caisse={caisse} />
           </div>

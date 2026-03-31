@@ -6,7 +6,7 @@ export function MenuSection({ caisse }: { caisse: ReturnType<typeof useCaisseCon
 
   return (
     <div>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+      <div className="scroll-x" style={{ marginBottom: 16 }}>
         {categories.map(cat => (
           <button key={cat} onClick={() => {
             setCategorieActive(cat);
@@ -17,11 +17,11 @@ export function MenuSection({ caisse }: { caisse: ReturnType<typeof useCaisseCon
             background: categorieActive === cat ? '#f5c842' : 'transparent',
             borderColor: categorieActive === cat ? '#f5c842' : '#333',
             color: categorieActive === cat ? '#0f0f0f' : '#888',
-            cursor: 'pointer', fontSize: 13, fontFamily: 'inherit', textTransform: 'capitalize', fontWeight: 500
+            cursor: 'pointer', fontSize: 13, fontFamily: 'inherit', textTransform: 'capitalize', fontWeight: 500,
+            whiteSpace: 'nowrap'
           }}>{cat}</button>
         ))}
       </div>
-      
       {categorieActive === 'burger' && (
         <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap', padding: '12px', background: '#1a1a1a', borderRadius: 8, border: '1px solid #2a2a2a', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, flex: 1 }}>

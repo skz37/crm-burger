@@ -1,4 +1,47 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0f0f0f; }
+body { background: #0f0f0f; -webkit-font-smoothing: antialiased; }
 button:focus-visible { outline: 2px solid #f5c842; outline-offset: 2px; }
 textarea:focus { outline: 1px solid #f5c842; }
+
+/* Responsive Utilities */
+.main-grid, .dashboard-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.main-grid {
+  grid-template-columns: minmax(0, 1fr) 320px;
+}
+
+.dashboard-grid {
+  grid-template-columns: minmax(300px, 1fr) 2fr;
+}
+
+.scroll-x {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-x::-webkit-scrollbar { display: none; }
+
+@media (max-width: 768px) {
+  .main-grid, .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  .stack-mobile {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .full-width-mobile {
+    width: 100% !important;
+  }
+}

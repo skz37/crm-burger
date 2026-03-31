@@ -27,7 +27,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: 40, alignItems: 'start' }}>
+      <div className="dashboard-grid" style={{ alignItems: 'start' }}>
         <div>
           <div style={{ paddingBottom: 8, marginBottom: 16 }}>
             <h2 style={{ fontSize: 18, borderBottom: '2px solid #333', paddingBottom: 8, color: '#aaa', letterSpacing: '0.05em', margin: 0 }}>RÉSUMÉ RAPPORT</h2>

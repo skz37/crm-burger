@@ -51,14 +51,14 @@ export function CartSection({ caisse }: { caisse: ReturnType<typeof useCaisseCon
       </div>
 
       {/* Client Info */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 8, marginBottom: 12 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
         <input type="text" value={nomClient} onChange={e => setNomClient(e.target.value)} placeholder="Nom du client (requis)" style={{
           width: '100%', background: '#111', border: '1px solid #2a2a2a', borderRadius: 8,
-          color: '#f5f0e8', padding: '8px 12px', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box'
+          color: '#f5f0e8', padding: '12px', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box'
         }} />
         <input type="tel" value={telephone} onChange={e => setTelephone(e.target.value)} placeholder="Téléphone (requis)" style={{
           width: '100%', background: '#111', border: '1px solid #2a2a2a', borderRadius: 8,
-          color: '#f5f0e8', padding: '8px 12px', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box'
+          color: '#f5f0e8', padding: '12px', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box'
         }} />
       </div>
 
