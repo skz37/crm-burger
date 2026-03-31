@@ -137,6 +137,14 @@ export function useCaisseController() {
 
   // Derived state
   const rapportJour = rapportsData.find(r => r.date_commande === today) || null
+  const totalJournalier = commandes
+    .filter(c => c.statut === 'payee' || c.statut === 'prete')
+    .reduce((acc, c) => acc + Number(c.total), 0)
+    
+  const nbCommandesJour = commandes
+    .filter(c => c.statut === 'payee' || c.statut === 'prete')
+    .length
+
   const rapportAffiche = (() => {
     let filtered = rapportsData
     if (typeRapport === 'jour') {
@@ -176,13 +184,19 @@ export function useCaisseController() {
   })
   const articlesFiltres = articles.filter(a => a.categorie === categorieActive)
 
+  async function marquerPrete(id: string) {
+    await CommandeService.markAsReady(id)
+    chargerCommandes()
+    chargerRapport()
+  }
+
   return {
     articles, lignes, setLignes, modePaiement, setModePaiement,
     note, setNote, nomClient, setNomClient, telephone, setTelephone,
     commandes, rapportsData, typeRapport, setTypeRapport,
     loading, onglet, setOnglet, categorieActive, setCategorieActive,
     msg, optionsBurger, setOptionsBurger, pendingBurger, setPendingBurger,
-    rapportJour, rapportAffiche, total, categories, articlesFiltres,
-    ajouterArticle, confirmerPendingBurger, retirerArticle, validerCommande, annulerCommande
+    rapportJour, rapportAffiche, total, totalJournalier, nbCommandesJour, categories, articlesFiltres,
+    ajouterArticle, confirmerPendingBurger, retirerArticle, validerCommande, annulerCommande, marquerPrete
   }
 }

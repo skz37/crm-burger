@@ -38,6 +38,12 @@ export const CommandeService = {
     return cmd
   },
 
+  async markAsReady(id: string) {
+    const { error } = await supabase.from('commandes').update({ statut: 'prete' }).eq('id', id)
+    if (error) throw error
+    return true
+  },
+
   async cancel(id: string) {
     const { error } = await supabase.from('commandes').update({ statut: 'annulee' }).eq('id', id)
     if (error) throw error

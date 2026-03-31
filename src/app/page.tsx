@@ -29,12 +29,10 @@ export default function CRMBurger() {
           </div>
           <div style={{ fontSize: 12, color: '#888', marginTop: 4 }}>{new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</div>
         </div>
-        {caisse.rapportJour && (
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 24, fontWeight: 700, color: '#4ade80' }}>{Number(caisse.rapportJour.chiffre_affaires).toFixed(2)} MAD</div>
-            <div style={{ fontSize: 12, color: '#888' }}>{caisse.rapportJour.nb_commandes} commandes aujourd'hui</div>
-          </div>
-        )}
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: 24, fontWeight: 700, color: '#4ade80' }}>{Number(caisse.totalJournalier).toFixed(2)} MAD</div>
+          <div style={{ fontSize: 12, color: '#888' }}>{caisse.nbCommandesJour} commandes aujourd'hui</div>
+        </div>
       </div>
 
       {/* Onglets */}

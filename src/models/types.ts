@@ -12,7 +12,7 @@ export type Commande = {
   numero_commande: number
   date_commande: string
   heure: string
-  statut: 'en_cours' | 'payee' | 'annulee'
+  statut: 'en_cours' | 'payee' | 'annulee' | 'prete'
   mode_paiement: 'especes' | 'carte' | 'virement'
   total: number
   note?: string
