@@ -61,13 +61,12 @@ export function useCaisseController() {
     const articleAjouter = { ...article }
     if (!fromCart && article.categorie === 'burger' && optionsBurger.length > 0) {
       const optionsSuffix = ` (${optionsBurger.join(', ')})`
-      articleAjouter.id = `${article.id}-${optionsBurger.join('-')}`
       articleAjouter.nom = `${article.nom}${optionsSuffix}`
     }
 
     setLignes(prev => {
-      const existant = prev.find(l => l.article.id === articleAjouter.id)
-      if (existant) return prev.map(l => l.article.id === articleAjouter.id ? { ...l, quantite: l.quantite + 1 } : l)
+      const existant = prev.find(l => l.article.id === articleAjouter.id && l.article.nom === articleAjouter.nom)
+      if (existant) return prev.map(l => (l.article.id === articleAjouter.id && l.article.nom === articleAjouter.nom) ? { ...l, quantite: l.quantite + 1 } : l)
       return [...prev, { article: articleAjouter, quantite: 1 }]
     })
 
@@ -83,13 +82,12 @@ export function useCaisseController() {
     const articleAjouter = { ...pendingBurger }
     if (optionsBurger.length > 0) {
       const optionsSuffix = ` (${optionsBurger.join(', ')})`
-      articleAjouter.id = `${pendingBurger.id}-${optionsBurger.join('-')}`
       articleAjouter.nom = `${pendingBurger.nom}${optionsSuffix}`
     }
 
     setLignes(prev => {
-      const existant = prev.find(l => l.article.id === articleAjouter.id)
-      if (existant) return prev.map(l => l.article.id === articleAjouter.id ? { ...l, quantite: l.quantite + 1 } : l)
+      const existant = prev.find(l => l.article.id === articleAjouter.id && l.article.nom === articleAjouter.nom)
+      if (existant) return prev.map(l => (l.article.id === articleAjouter.id && l.article.nom === articleAjouter.nom) ? { ...l, quantite: l.quantite + 1 } : l)
       return [...prev, { article: articleAjouter, quantite: 1 }]
     })
 
@@ -97,12 +95,12 @@ export function useCaisseController() {
     setPendingBurger(null)
   }
 
-  function retirerArticle(articleId: string) {
+  function retirerArticle(articleId: string, articleNom: string) {
     setLignes(prev => {
-      const existant = prev.find(l => l.article.id === articleId)
+      const existant = prev.find(l => l.article.id === articleId && l.article.nom === articleNom)
       if (!existant) return prev
-      if (existant.quantite === 1) return prev.filter(l => l.article.id !== articleId)
-      return prev.map(l => l.article.id === articleId ? { ...l, quantite: l.quantite - 1 } : l)
+      if (existant.quantite === 1) return prev.filter(l => !(l.article.id === articleId && l.article.nom === articleNom))
+      return prev.map(l => (l.article.id === articleId && l.article.nom === articleNom) ? { ...l, quantite: l.quantite - 1 } : l)
     })
   }
 

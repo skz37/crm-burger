@@ -49,10 +49,45 @@ export function HistoriqueSection({ caisse }: { caisse: ReturnType<typeof useCai
                 </div>
               </div>
               {c.commande_articles && c.commande_articles.length > 0 && (
-                <div style={{ marginTop: 10, fontSize: 12, color: '#666', borderTop: '1px solid #222', paddingTop: 8 }}>
-                  {c.commande_articles.map((l: CommandeArticle) => (
-                    <span key={l.id} style={{ marginRight: 12 }}>{l.quantite}× {l.nom_article}</span>
-                  ))}
+                <div style={{ marginTop: 12, borderTop: '1px solid #222', paddingTop: 10 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {c.commande_articles.map((l: CommandeArticle) => (
+                      <div key={l.id} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div style={{
+                          background: '#333', border: '1px solid #444', color: '#f5c842', 
+                          fontWeight: 800, fontSize: 13, minWidth: 32, height: 32, 
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                          borderRadius: 6, flexShrink: 0
+                        }}>
+                          {l.quantite}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <div style={{ fontSize: 14, fontWeight: 600, color: '#f5f0e8' }}>
+                            {l.nom_article.split(' (')[0]}
+                          </div>
+                          {l.nom_article.includes(' (') && (
+                            <div style={{ 
+                              fontSize: 12, color: '#fbbf24', fontWeight: 600, 
+                              marginTop: 2, background: 'rgba(251,191,36,0.1)', 
+                              padding: '2px 6px', borderRadius: 4, width: 'fit-content' 
+                            }}>
+                              {l.nom_article.split(' (')[1].replace(')', '')}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {c.note && (
+                <div style={{ 
+                  marginTop: 12, background: 'rgba(245, 200, 66, 0.05)', 
+                  border: '1px dashed rgba(245, 200, 66, 0.3)', borderRadius: 8, padding: '10px 14px' 
+                }}>
+                  <div style={{ fontSize: 10, textTransform: 'uppercase', color: '#f5c842', fontWeight: 700, marginBottom: 4, letterSpacing: '0.5px' }}>Note cuisine</div>
+                  <div style={{ fontSize: 13, color: '#f5f0e8', fontStyle: 'italic' }}>"{c.note}"</div>
                 </div>
               )}
             </div>

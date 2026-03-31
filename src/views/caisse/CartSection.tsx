@@ -16,13 +16,13 @@ export function CartSection({ caisse }: { caisse: ReturnType<typeof useCaisseCon
       ) : (
         <div style={{ marginBottom: 16 }}>
           {lignes.map(l => (
-            <div key={l.article.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #222' }}>
+            <div key={`${l.article.id}-${l.article.nom}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #222' }}>
               <div>
                 <div style={{ fontSize: 13, color: '#f5f0e8' }}>{l.article.nom}</div>
                 <div style={{ fontSize: 12, color: '#666' }}>{l.article.prix.toFixed(2)} MAD × {l.quantite}</div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <button onClick={() => retirerArticle(l.article.id)} style={{ width: 24, height: 24, borderRadius: 6, border: '1px solid #333', background: '#111', color: '#f5f0e8', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>−</button>
+                <button onClick={() => retirerArticle(l.article.id, l.article.nom)} style={{ width: 24, height: 24, borderRadius: 6, border: '1px solid #333', background: '#111', color: '#f5f0e8', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>−</button>
                 <span style={{ fontSize: 14, minWidth: 16, textAlign: 'center' }}>{l.quantite}</span>
                 <button onClick={() => ajouterArticle(l.article, true)} style={{ width: 24, height: 24, borderRadius: 6, border: '1px solid #333', background: '#111', color: '#f5f0e8', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
                 <span style={{ fontSize: 14, color: '#f5c842', minWidth: 52, textAlign: 'right' }}>{(l.article.prix * l.quantite).toFixed(2)} MAD</span>
