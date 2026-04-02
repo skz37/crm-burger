@@ -7,6 +7,7 @@ import { MenuSection } from '@/views/caisse/MenuSection'
 import { CartSection } from '@/views/caisse/CartSection'
 import { HistoriqueSection } from '@/views/caisse/HistoriqueSection'
 import { RapportSection } from '@/views/RapportSection'
+import { StockSection } from '@/views/StockSection'
 
 export default function CRMBurger() {
   const auth = useAuthController()
@@ -37,7 +38,7 @@ export default function CRMBurger() {
 
       {/* Onglets */}
       <div className="scroll-x" style={{ borderBottom: '1px solid #2a2a2a', background: '#141414', padding: '0 12px' }}>
-        {(['commande', 'historique', 'rapport'] as const).map(o => (
+        {(['commande', 'historique', 'rapport', 'stock'] as const).map(o => (
           <button key={o} onClick={() => caisse.setOnglet(o)} style={{
             padding: '12px 18px', border: 'none', background: 'none', cursor: 'pointer',
             color: caisse.onglet === o ? '#f5c842' : '#888',
@@ -45,7 +46,7 @@ export default function CRMBurger() {
             fontSize: 13, fontFamily: 'inherit', textTransform: 'capitalize', fontWeight: 500,
             whiteSpace: 'nowrap'
           }}>
-            {o === 'commande' ? 'Nouvelle commande' : o === 'historique' ? 'Commandes du jour' : 'Rapport du jour'}
+            {o === 'commande' ? 'Nouvelle commande' : o === 'historique' ? 'Commandes du jour' : o === 'rapport' ? 'Rapport du jour' : 'Gestion Stock'}
           </button>
         ))}
       </div>
@@ -68,6 +69,10 @@ export default function CRMBurger() {
             setTypeRapport={caisse.setTypeRapport} 
             rapportAffiche={caisse.rapportAffiche} 
           />
+        )}
+
+        {caisse.onglet === 'stock' && (
+          <StockSection caisse={caisse} />
         )}
       </div>
     </div>
