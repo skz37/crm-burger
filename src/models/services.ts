@@ -5,6 +5,12 @@ export const ArticleService = {
   async getAll() {
     const { data } = await supabase.from('articles').select('*').eq('actif', true).order('categorie')
     return data as Article[] | null
+  },
+
+  async updateStock(id: string, newStock: number) {
+    const { error } = await supabase.from('articles').update({ stock: newStock }).eq('id', id)
+    if (error) throw error
+    return true
   }
 }
 

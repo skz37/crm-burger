@@ -5,6 +5,7 @@ export type Article = {
   categorie: string
   description?: string
   actif: boolean
+  stock: number
 }
 
 export type Commande = {

@@ -13,7 +13,7 @@ export function useCaisseController() {
   const [rapportsData, setRapportsData] = useState<RapportJournalier[]>([])
   const [typeRapport, setTypeRapport] = useState<'jour' | 'semaine' | 'mois'>('jour')
   const [loading, setLoading] = useState(false)
-  const [onglet, setOnglet] = useState<'commande' | 'historique' | 'rapport'>('commande')
+  const [onglet, setOnglet] = useState<'commande' | 'historique' | 'rapport' | 'stock'>('commande')
   const [categorieActive, setCategorieActive] = useState('burger')
   const [msg, setMsg] = useState('')
   const [optionsBurger, setOptionsBurger] = useState<string[]>([])
@@ -106,6 +106,15 @@ export function useCaisseController() {
 
   const total = lignes.reduce((s, l) => s + l.article.prix * l.quantite, 0)
 
+  async function modifierStockArticle(id: string, quantite: number) {
+    try {
+      await ArticleService.updateStock(id, quantite)
+      setArticles(prev => prev.map(a => a.id === id ? { ...a, stock: quantite } : a))
+    } catch (e) {
+      console.error('Erreur lors de la mise à jour du stock:', e)
+    }
+  }
+
   async function validerCommande() {
     if (lignes.length === 0) return
     setLoading(true)
@@ -114,6 +123,15 @@ export function useCaisseController() {
         { mode_paiement: modePaiement, total, note, statut: 'payee', nom_client: nomClient.trim(), telephone: telephone.trim(), date_commande: today },
         lignes
       )
+
+      // Update stock for each article in the order
+      for (const ligne of lignes) {
+        if (ligne.article.stock !== undefined) {
+          const newStock = Math.max(0, ligne.article.stock - ligne.quantite)
+          await ArticleService.updateStock(ligne.article.id, newStock)
+        }
+      }
+
       setLignes([])
       setNote('')
       setNomClient('')
@@ -122,6 +140,7 @@ export function useCaisseController() {
       setTimeout(() => setMsg(''), 3000)
       chargerCommandes()
       chargerRapport()
+      chargerArticles() // Refresh articles to get updated stock
     } catch(e) {
        console.error(e)
     } finally { 
@@ -197,6 +216,6 @@ export function useCaisseController() {
     loading, onglet, setOnglet, categorieActive, setCategorieActive,
     msg, optionsBurger, setOptionsBurger, pendingBurger, setPendingBurger,
     rapportJour, rapportAffiche, total, totalJournalier, nbCommandesJour, categories, articlesFiltres,
-    ajouterArticle, confirmerPendingBurger, retirerArticle, validerCommande, annulerCommande, marquerPrete
+    ajouterArticle, confirmerPendingBurger, retirerArticle, validerCommande, annulerCommande, marquerPrete, modifierStockArticle
   }
 }
